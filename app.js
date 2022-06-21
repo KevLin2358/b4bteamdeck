@@ -9,10 +9,19 @@ const User = require("./models/User");
 const decks = require("./routes/api/decks");
 const cards = require("./routes/api/cards");
 
+const bodyParser = require('body-parser');
+
 mongoose
   .connect(db,{useNewUrlParser: true})
   .then(() => console.log("Connected to mongoDB"))
   .catch(err => console.log(err));
+
+
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   const user = new User({
